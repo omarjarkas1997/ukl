@@ -3,10 +3,9 @@
 #include <unistd.h>
 
 int
-main(int argc, char *argv[])
-{
+main(int argc, char *argv[]) {
   printf("hello, from the UKL world\n");
   for (;;)
-    pause ();
+    pause();
   exit(EXIT_SUCCESS);
 }

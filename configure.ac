@@ -1,22 +1,4 @@
-# Unikernel Linux
-# Copyright (C) 2018-2022 Red Hat Inc., Boston University,
-# Ali Raza, Tommy Unger, Eric Munson, Richard W.M. Jones.
-#
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Lesser General Public
-# License as published by the Free Software Foundation; either
-# version 2 of the License, or (at your option) any later version.
-#
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-
-AC_INIT([UKL], 1.0.0)
+AC_INIT([UKL], 1.0.0) #
 
 dnl This must be used very early else you will get
 dnl "warning: AC_RUN_IFELSE was called before AC_USE_SYSTEM_EXTENSIONS"
@@ -32,6 +14,7 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_CPP
 AC_SYS_LARGEFILE
+AC_PROG_RANLIB
 
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
@@ -137,6 +120,8 @@ AC_CONFIG_FILES([Makefile \
 		 initrd/Makefile \
                  dnsmasq/Makefile \
                  hello/Makefile \
+                 seed/Makefile \
+                 seed1/Makefile \
                  memcached/Makefile \
 		 mpc-bench/Makefile \
 		 fio/Makefile \

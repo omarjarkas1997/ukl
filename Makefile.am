@@ -53,7 +53,7 @@ kern-clean:
 	-rm vmlinuz
 	-cd linux && $(MAKE) clean
 
-DIST_SUBDIRS = dnsmasq hello memcached redis mpc-bench fio
+DIST_SUBDIRS = dnsmasq hello seed memcached redis mpc-bench fio
 
 #----------------------------------------------------------------------
 # Build libgcc and static libstdc++.
@@ -261,7 +261,7 @@ ukl-initrd.cpio.xz: $(PROGRAM)/data.tar.gz vmlinuz
 # Non-privileged:
 boot: ukl-initrd.cpio.xz vmlinuz
 	qemu-system-x86_64 \
-	    -cpu host,-smap,-smep -accel kvm -m 4G \
+	    -cpu host,-smap,-smep -accel kvm -m 8G \
 	    -kernel vmlinuz \
 	    -initrd ./ukl-initrd.cpio.xz \
 	    -nodefaults -nographic -serial stdio \
