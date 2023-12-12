@@ -1,0 +1,489 @@
+ 2018  ./erun_auto.sh 
+ 2019  make clean
+ 2020  ./erun_auto.sh 
+ 2021  wget https://www.openssl.org/source/openssl-3.2.0.tar.gz
+ 2022  mv  openssl-3.2.0.tar.gz ../..
+ 2023  cd ../..
+ 2024  tar xvf openssl-3.2.0.tar.gz 
+ 2025  cd openssl-3.2.0/
+ 2026  ./config no-shared
+ 2027  make
+ 2028  cd -
+ 2029  cd ukl/seed1/
+ 2030  ./erun_auto.sh 
+ 2031  cd ../..
+ 2032  wget https://www.zlib.net/zlib-1.3.tar.gz
+ 2033  tar xvf zlib-1.3.tar.gz 
+ 2034  ./configure --static
+ 2035  make
+ 2036  cd zlib-1.3/
+ 2037  ./configure --static
+ 2038  make
+ 2039  cd ../ukl/seed1/
+ 2040  ./erun_auto.sh 
+ 2041  cd ../..
+ 2042  wget https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.5.16.tgz
+ 2043  tar xvf openldap-2.5.16.tgz 
+ 2044  cd openldap-2.5.16/
+ 2045  ls -l
+ 2046  ./configure --disable-shared --enable-static --with-tls=openssl
+ 2047  make depend
+ 2048  make
+ 2049  find . -name "*.a"
+ 2050  mv ./libraries/libldap/.libs/libldap.a ../ukl/
+ 2051  cd ../ukl/
+ 2052  cd seed
+ 2053  cd ../seed1/
+ 2054  ./erun_auto.sh 
+ 2055  cd ../..
+ 2056  chmod +x download_berkedb.sh 
+ 2057  ./download_berkedb.sh 
+ 2058  ls -l
+ 2059  unzip V997917-01.zip 
+ 2060  cd build_unix
+ 2061  ../dist/configure --enable-static --disable-shared
+ 2062  cd db-18.1.40/
+ 2063  cd build_unix
+ 2064  ../dist/configure --enable-static --disable-shared
+ 2065  find . -name "*.a"
+ 2066  cd ..
+ 2067  find . -name "*.a"
+ 2068  make
+ 2069  cd build_
+ 2070  cd build_unix/
+ 2071  make
+ 2072  find . -name "*.a"
+ 2073  mv libdb.a ../../ukl/
+ 2074  cd ../../ukl/
+ 2075  cd seed1/
+ 2076  ./erun_auto.sh 
+ 2077  cd ../../db-18.1.40/build_unix/
+ 2078  ls -l
+ 2079  ls -l | grep *.a
+ 2080  mv libdb-18.1.a ../../ukl/
+ 2081  cd ../../ukl/seed1/
+ 2082  ./erun_auto.sh 
+ 2083  cd ..
+ 2084  ls -l | grep db
+ 2085  ls -l | grep lib
+ 2086  ls -l | grep libdb
+ 2087  make clean
+ 2088  cd seed1/
+ 2089  ./erun_auto.sh 
+ 2090  ls -lR
+ 2091  cd ..
+ 2092  ./e
+ 2093  cd seed1/
+ 2094  ./erun_auto.sh 
+ 2095  cd ../../curl
+ 2096  ./configure --disable-shared --enable-static
+ 2097  cd ../tiny-curl-8.4.0/
+ 2098  ./configure --disable-shared --enable-static
+ 2099  make
+ 2100  make clean
+ 2101  ./configure --disable-shared --enable-static
+ 2102  make
+ 2103  cd ..
+ 2104  wget https://curl.se/download/curl-8.5.0.tar.gz
+ 2105  tar xvf curl-8.5.0.tar.gz 
+ 2106  cd curl-8.5.0/
+ 2107  ./configure --disable-shared --enable-static
+ 2108  make
+ 2109  ./configure --disable-shared --enable-static --with-openssl
+ 2110  make
+ 2111  find . -name "*.a"
+ 2112  mv ./lib/.libs/libcurl.a ..
+ 2113  cd ../
+ 2114  find zlib-1.3/ . -name "*.a"
+ 2115  cd zlib-1.3/
+ 2116  find . -name "*.a"
+ 2117  cp ../static_libraries/
+ 2118  cp libz.a ../static_libraries/ 
+ 2119  cd ../openssl-3.2.0/
+ 2120  find . -name "*.a"
+ 2121  cp libcrypto.a ../static_libraries/
+ 2122  cp libssl.a ../static_libraries/
+ 2123  cd ../openldap-2.5.16/
+ 2124  ls -l
+ 2125  find . -name "*.a"
+ 2126  ./configure 
+ 2127  make depend
+ 2128  make
+ 2129  find . -name "*.a"
+ 2130  cp ./libraries/libldap/.libs/libldap.a ../static_libraries/
+ 2131  cp ./libraries/liblber/.libs/liblber.a ../static_libraries/
+ 2132  cd ..
+ 2133  cd openssl-3.2.0/
+ 2134  find . -name "*.a"
+ 2135  mv libcrypto.a ../static_libraries/
+ 2136  cd ../ukl/
+ 2137  cd seed1/
+ 2138  ./erun_auto.sh 
+ 2139  readelf UKL.a 
+ 2140  readelf -a UKL.a 
+ 2141  readelf --help
+ 2142  readelf -h UKL.a 
+ 2143  ./erun_auto.sh \
+ 2144  ./erun_auto.sh 
+ 2145  cd ../../curl-8.5.0/
+ 2146  ./configure --disable-shared --enable-static     CFLAGS="-ggdb -mno-red-zone -mcmodel=kernel -static"
+ 2147  make
+ 2148  make clean
+ 2149  cd ..
+ 2150  rm -rf curl-8.5.0
+ 2151  tar xvf curl-8.5.0.tar.gz 
+ 2152  cd curl-8.5.0/
+ 2153  ./configure --disable-shared --enable-static CFLAGS="-ggdb -mno-red-zone -mcmodel=kernel -static"
+ 2154  make
+ 2155  ./configure --disable-shared --enable-static --with-openssl CFLAGS="-ggdb -mno-red-zone -mcmodel=kernel -static"
+ 2156  make
+ 2157  make clean
+ 2158  ./configure --disable-shared --enable-static --with-openssl CFLAGS="-ggdb -mno-red-zone -mcmodel=kernel -static"
+ 2159  ./configure --disable-shared --enable-static --with-openssl CFLAGS="-ggdb -mno-red-zone -mcmodel=kernel -static
+ 2160  ./configure --disable-shared --enable-static --with-openssl CFLAGS="-ggdb -mno-red-zone -mcmodel=kernel -static"
+ 2161  ./configure --with-openssl
+ 2162  make
+ 2163  ./configure --with-openssl --disable-shared --enable-static  CFLAGS="-ggdb -mno-red-zone -mcmodel=kernel -static"
+ 2164  ./configure --with-openssl --disable-shared --enable-static
+ 2165  ./configure --disable-shared --enable-static CFLAGS="-fPIC" --with-openssl
+ 2166  make
+ 2167  make clean
+ 2168  ./configure --disable-shared --enable-static CFLAGS="-fPIC" --with-openssl
+ 2169  make clean
+ 2170  echo $?
+ 2171  find . -name "*.a"
+ 2172  ./configure --disable-shared --enable-static --with-openssl
+ 2173  make clean
+ 2174  ./configure --disable-shared --enable-static --with-openssl
+ 2175  make
+ 2176  echo $?
+ 2177  find . -name "*.a"
+ 2178  mv ./lib/.libs/libcurl.a ../static_libraries/
+ 2179  ../openldap-2.5.16/
+ 2180  ./configure --disable-shared --enable-static
+ 2181  make 
+ 2182  make clean
+ 2183  ./configure --disable-shared --enable-static 
+ 2184  echo $?
+ 2185  ./configure --disable-shared --enable-static --with-openssl
+ 2186  make
+ 2187  echo $?
+ 2188  find . -name "*.a"
+ 2189  mv ./lib/.libs/libcurl.a ../static_libraries/
+ 2190  cd ../zlib-1.3/
+ 2191  ./configure --disable-shared --enable-static --with-openssl
+ 2192  make clean
+ 2193  make
+ 2194  make clean'
+ 2195  make clean
+ 2196  ./configure --disable-shared --enable-static --with-openssl
+ 2197  ./configure --enable-static --with-openssl
+ 2198  ./configure --with-openssl
+ 2199  ./configure --static
+ 2200  make
+ 2201  cd ../ukl/seed1/
+ 2202  ./erun_auto.sh 
+ 2203  history
+
+
+ 
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[1107]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[1108]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1109]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1109]: Circular liblber.a <- liblber.a dependency dropped.
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[1110]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[1111]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1112]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1112]: Circular liblber.a <- liblber.a dependency dropped.
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[1113]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[1114]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1115]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1115]: Circular liblber.a <- liblber.a dependency dropped.
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[1116]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[1117]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1118]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[1118]: Circular liblber.a <- liblber.a dependency dropped.
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[1119]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2803]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2804]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2805]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2806]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2807]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2808]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2809]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2810]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2811]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2812]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2813]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2814]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2815]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2816]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2817]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2818]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2819]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2820]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2821]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2822]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2823]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2824]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2825]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2826]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2827]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2828]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2829]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...
+Building static library libz.a version 1.3 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+make CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+make[2830]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make  all-recursive
+make[2831]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+make[2832]: Entering directory '/home/omarjarkas/Desktop/SEED/seed_project/ukl'
+rm -f libz.a
+cd zlib-1.3 && ./configure --static
+Checking for gcc...

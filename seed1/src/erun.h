@@ -3,20 +3,12 @@
 
 #include <stdbool.h>
 
-
-struct crun_global_arguments {
-    char *root;
-    char *log;
-    char *log_format;
-    const char *handler;
-
+struct erun_global_arguments {
     int argc;
     char **argv;
-
     bool command;
-    bool debug;
-    bool option_systemd_cgroup;
-    bool option_force_no_cgroup;
 };
+
+char *argp_mandatory_argument(char *arg, struct argp_state *state);
 
 #endif // SEED_ERUN_H

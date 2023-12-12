@@ -167,11 +167,16 @@ libcrypt.a: stamp-glibc-configure libm.a
 	cd glibc-build && $(MAKE) subdirs=crypt
 	cp glibc-build/crypt/libcrypt.a $@
 
+libcrypto.a libssl.a: 
+	rm -f $@
+	cd openssl-3.2.0 && ./config no-shared no-dso -mcmodel=kernel -mno-red-zone -static -fno-stack-protector -fno-PIC linux-x86_64 && $(MAKE)
+	cp libcrypto.a libssl.a $(abs_top_builddir)
+
 crt1.o crti.o crtn.o: librt.a
 	rm -f $@
 	cp glibc-build/csu/$(basename $@).o $@
 
-stamp-glibc-configure:
+stamp-glibc-configure: libcrypto.a libssl.a
 	rm -f $@
 	mkdir -p glibc-build
 	cd glibc-build && \
@@ -276,7 +281,7 @@ boot-priv: ukl-initrd.cpio.xz vmlinuz
 	    -kernel vmlinuz \
 	    -initrd ./ukl-initrd.cpio.xz \
 	    -nodefaults -nographic -serial stdio \
-	    -append "console=ttyS0 net.ifnames=0 biosdevname=0 nowatchdog clearcpuid=smap,smep mitigations=off mds=off ip=192.168.122.128:::255.255.255.0::eth0:none" \
+	    -append "console=ttyS0 net.ifnames=0 biosdevname=0 nowatchdog clearcpuid=smap,smep mitigations=off mds=off ip=192.168.122.2::192.168.122.1:255.255.255.0:qemu-guest:eth0:none" \
 	    -net nic -net bridge,br=virbr0
 
 #----------------------------------------------------------------------
@@ -305,3 +310,113 @@ maintainer-commit:
 # Tag HEAD with the current version.
 maintainer-tag:
 	git tag -a v$(VERSION) -m "Version $(VERSION)." -f
+
+
+# omarjarkas@omarjarkas-ThinkPad-P53:~/Desktop/SEED/seed_project/erun2/src/http$ ip route | grep default
+# default via 10.35.12.1 dev enp0s31f6 proto dhcp metric 100 
+# omarjarkas@omarjarkas-ThinkPad-P53:~/Desktop/SEED/seed_project/erun2/src/http$ cat /etc/resolv.conf
+# # This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).
+# # Do not edit.
+# #
+# # This file might be symlinked as /etc/resolv.conf. If you're looking at
+# # /etc/resolv.conf and seeing this text, you have followed the symlink.
+# #
+# # This is a dynamic resolv.conf file for connecting local clients to the
+# # internal DNS stub resolver of systemd-resolved. This file lists all
+# # configured search domains.
+# #
+# # Run "resolvectl status" to see details about the uplink DNS servers
+# # currently in use.
+# #
+# # Third party programs should typically not access this file directly, but only
+# # through the symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a
+# # different way, replace this symlink by a static file or a different symlink.
+# #
+# # See man:systemd-resolved.service(8) for details about the supported modes of
+# # operation for /etc/resolv.conf.
+
+# nameserver 127.0.0.53
+# options edns0 trust-ad
+# search eait.uq.edu.au
+# omarjarkas@omarjarkas-ThinkPad-P53:~/Desktop/SEED/seed_project/erun2/src/http$ systemd-resolve --status
+# systemd-resolve: command not found
+# omarjarkas@omarjarkas-ThinkPad-P53:~/Desktop/SEED/seed_project/erun2/src/http$ ip addr show
+# 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+#     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+#     inet 127.0.0.1/8 scope host lo
+#        valid_lft forever preferred_lft forever
+#     inet6 ::1/128 scope host 
+#        valid_lft forever preferred_lft forever
+# 2: enp0s31f6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+#     link/ether 00:2b:67:35:28:4f brd ff:ff:ff:ff:ff:ff
+#     inet 10.35.15.175/22 brd 10.35.15.255 scope global dynamic noprefixroute enp0s31f6
+#        valid_lft 3490sec preferred_lft 3490sec
+#     inet6 fe80::f485:5503:9d9b:5165/64 scope link noprefixroute 
+#        valid_lft forever preferred_lft forever
+# 3: virbr0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+#     link/ether 52:54:00:27:66:b4 brd ff:ff:ff:ff:ff:ff
+#     inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+#        valid_lft forever preferred_lft forever
+# 4: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+#     link/ether 02:42:56:62:6a:5b brd ff:ff:ff:ff:ff:ff
+#     inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+#        valid_lft forever preferred_lft forever
+# 32: tap0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel master virbr0 state UNKNOWN group default qlen 1000
+#     link/ether fe:18:32:e5:ff:e7 brd ff:ff:ff:ff:ff:ff
+#     inet6 fe80::fc18:32ff:fee5:ffe7/64 scope link 
+#        valid_lft forever preferred_lft forever
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# libz.a: stamp-glibc-configure
+# 	rm -f $@
+# 	cd zlib-1.3 && ./configure --static
+# 	$(MAKE) CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+# 	cp libz.a $(abs_top_builddir)
+
+# libdb.a: stamp-glibc-configure libz.a
+# 	rm -f $@
+# 	cd db-18.1.40/build_unix && ../dist/configure --enable-static --disable-shared
+# 	$(MAKE)
+# 	cp libdb.a $(abs_top_builddir)
+
+# liblber.a: stamp-glibc-configure libdb.a
+# 	rm -f $@
+# 	cd openldap-2.5.16
+# 	./configure --enable-static --disable-shared
+# 	$(MAKE) depend
+# 	$(MAKE) -C libraries/liblber
+# 	cp libraries/liblber/.libs/liblber.a $(abs_top_builddir)
+
+# libldap.a: liblber.a
+# 	rm -f $@
+# 	cd openldap-2.5.16
+# 	$(MAKE) -C libraries/libldap
+# 	cp libraries/libldap/.libs/libldap.a $(abs_top_builddir)
+
+# libcrypto.a libssl.a: stamp-glibc-configure libldap.a
+# 	rm -f $@
+# 	cd openssl-3.2.0
+# 	./config no-shared no-dso -fno-PIC
+# 	$(MAKE) CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
+# 	cp libcrypto.a libssl.a $(abs_top_builddir)
+
+# libcurl.a: libssl.a libcrypto.a libldap.a liblber.a libdb.a libz.a
+# 	rm -f $@
+# 	cd curl-8.5.0
+# 	./configure --disable-shared --enable-static --with-openssl
+# 	$(MAKE) CFLAGS="-mcmodel=kernel -fno-PIC"
+# 	cp lib/.libs/libcurl.a $(abs_top_builddir)
+
+
