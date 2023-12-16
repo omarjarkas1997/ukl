@@ -245,7 +245,7 @@ int ossl_param_find_pidx(const char *s)
                         }
                         break;
                     case '\0':
-                        return PIDX_OBJECT_PARAM_DATA;
+                        return PIDX_KDF_PARAM_DATA;
                     }
                 }
             }
@@ -562,7 +562,7 @@ int ossl_param_find_pidx(const char *s)
                 break;
             case 'f':
                 if (strcmp("o", s + 3) == 0)
-                    return PIDX_KDF_PARAM_INFO;
+                    return PIDX_PASSPHRASE_PARAM_INFO;
                 break;
             case 'p':
                 if (strcmp("ut-type", s + 3) == 0)
@@ -604,7 +604,7 @@ int ossl_param_find_pidx(const char *s)
                     return PIDX_CIPHER_PARAM_IVLEN;
                 break;
             case '\0':
-                return PIDX_MAC_PARAM_IV;
+                return PIDX_CIPHER_PARAM_IV;
             }
         }
         break;
@@ -915,7 +915,7 @@ int ossl_param_find_pidx(const char *s)
                     default:
                         break;
                     case '\0':
-                        return PIDX_LIBSSL_RECORD_LAYER_PARAM_MODE;
+                        return PIDX_CIPHER_PARAM_MODE;
                     }
                     break;
                 case 'u':
@@ -934,7 +934,7 @@ int ossl_param_find_pidx(const char *s)
             break;
         case 'a':
             if (strcmp("me", s + 2) == 0)
-                return PIDX_PROV_PARAM_NAME;
+                return PIDX_STORE_PARAM_ISSUER;
             break;
         case 'o':
             switch(s[2]) {
@@ -1165,7 +1165,7 @@ int ossl_param_find_pidx(const char *s)
                 return PIDX_PKEY_PARAM_PUB_KEY;
             break;
         case '\0':
-            return PIDX_PKEY_PARAM_FFC_P;
+            return PIDX_PKEY_PARAM_EC_P;
         }
         break;
     case 'q':
@@ -1717,7 +1717,7 @@ int ossl_param_find_pidx(const char *s)
             }
             break;
         case '\0':
-            return PIDX_KDF_PARAM_SCRYPT_R;
+            return PIDX_KDF_PARAM_KBKDF_R;
         }
         break;
     case 's':
@@ -1742,7 +1742,7 @@ int ossl_param_find_pidx(const char *s)
                         break;
                     case 'l':
                         if (strcmp("en", s + 5) == 0)
-                            return PIDX_PKEY_PARAM_RSA_PSS_SALTLEN;
+                            return PIDX_SIGNATURE_PARAM_PSS_SALTLEN;
                         break;
                     case '\0':
                         return PIDX_KDF_PARAM_SALT;
@@ -1807,7 +1807,7 @@ int ossl_param_find_pidx(const char *s)
                 break;
             case 'e':
                 if (strcmp("d", s + 3) == 0)
-                    return PIDX_KDF_PARAM_SEED;
+                    return PIDX_PKEY_PARAM_FFC_SEED;
                 break;
             case 'r':
                 if (strcmp("ial", s + 3) == 0)
@@ -1820,7 +1820,7 @@ int ossl_param_find_pidx(const char *s)
             break;
         case 'i':
             if (strcmp("ze", s + 2) == 0)
-                return PIDX_KDF_PARAM_SIZE;
+                return PIDX_MAC_PARAM_SIZE;
             break;
         case 'p':
             if (strcmp("eed", s + 2) == 0)
@@ -2493,7 +2493,7 @@ int ossl_param_find_pidx(const char *s)
             break;
         case 'y':
             if (strcmp("pe", s + 2) == 0)
-                return PIDX_KDF_PARAM_SSHKDF_TYPE;
+                return PIDX_OBJECT_PARAM_TYPE;
         }
         break;
     case 'u':
@@ -2623,7 +2623,7 @@ int ossl_param_find_pidx(const char *s)
             break;
         case 'e':
             if (strcmp("rsion", s + 2) == 0)
-                return PIDX_KDF_PARAM_ARGON2_VERSION;
+                return PIDX_PROV_PARAM_VERSION;
         }
         break;
     case 'x':
@@ -2647,7 +2647,7 @@ int ossl_param_find_pidx(const char *s)
                         return PIDX_DIGEST_PARAM_XOFLEN;
                     break;
                 case '\0':
-                    return PIDX_DIGEST_PARAM_XOF;
+                    return PIDX_MAC_PARAM_XOF;
                 }
             }
             break;

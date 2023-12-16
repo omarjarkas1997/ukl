@@ -410,7 +410,7 @@ maintainer-tag:
 # 	cd openssl-3.2.0
 # 	./config no-shared no-dso -fno-PIC
 # 	$(MAKE) CFLAGS="-mcmodel=kernel -fno-PIC -no-pie"
-# 	cp libcrypto.a libssl.a $(abs_top_builddir)
+# 	cp openssl-3.2.0/libcrypto.a openssl-3.2.0/libssl.a $(abs_top_builddir)
 
 # libcurl.a: libssl.a libcrypto.a libldap.a liblber.a libdb.a libz.a
 # 	rm -f $@

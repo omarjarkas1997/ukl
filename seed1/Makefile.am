@@ -3,6 +3,7 @@ SRCDIR = src
 LIBDIR = $(SRCDIR)/liberun
 RUNTIME_SPEC = $(SRCDIR)/runtime_spec
 YAJLDIR = $(SRCDIR)/yajl
+HTTPDIR = $(SRCDIR)/http
 
 SRC_FILES = $(wildcard $(SRCDIR)/*.c)
 LIB_FILES = $(wildcard $(LIBDIR)/*.c)
@@ -24,10 +25,10 @@ PTHREAD_LIB = $(abs_top_builddir)/libpthread.a
 RT_LIB      = $(abs_top_builddir)/librt.a
 MATH_LIB    = $(abs_top_builddir)/libm.a
 GCC_LIBS    = $(abs_top_builddir)/libgcc.a $(abs_top_builddir)/libgcc_eh.a
-CURL_LIB 	=  $(abs_top_builddir)/libssl.a \
+SSL_LIB 	=  $(abs_top_builddir)/libssl.a \
 				$(abs_top_builddir)/libcrypto.a 
 
-# CURL_LIB    = $(abs_top_builddir)/libcurl.a \
+# SSL_LIB    = $(abs_top_builddir)/libcurl.a \
 #               $(abs_top_builddir)/libssl.a \
 #               $(abs_top_builddir)/libcrypto.a \
 #               $(abs_top_builddir)/libldap.a \
@@ -46,21 +47,21 @@ endif
 data.tar.gz:
 	touch data.tar.gz
 
-UKL.a: $(SRCDIR)/erun.o src/undefined_sys_hack.o \
-	$(SRCDIR)/create.o $(SRCDIR)/container.o \
+UKL.a: $(SRCDIR)/erun.o $(SRCDIR)/undefined_sys_hack.o \
+	$(SRCDIR)/create.o $(SRCDIR)/container.o $(HTTPDIR)/http_client.o \
 	$(LIB_FILES:.c=.o) \
 	$(RUNTIME_SPEC_FILES:.c=.o) \
 	$(YAJL_FILES:.c=.o)
 	rm -f $@ temp.o
 	ld -r -o temp.o -allow-multiple-definition \
 		$(CRT_STARTS) \
-		src/erun.o \
+		$(SRCDIR)/erun.o $(HTTPDIR)/http_client.o \
 		--start-group \
 		--whole-archive \
 		$(MATH_LIB) $(RT_LIB) $(PTHREAD_LIB) $(C_LIB) \
 		--no-whole-archive \
 		$(GCC_LIBS) \
-		$(CURL_LIB) \
+		$(SSL_LIB) \
 		--end-group \
 		$(CRT_ENDS)
 	ar cr UKL.a temp.o src/undefined_sys_hack.o \
